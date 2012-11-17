@@ -1,0 +1,112 @@
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+
+<div class="well hide" id="basic-dashboard" style="display: block;" ng-app>
+  <div ng-controller="SettingsCtrl">
+    <h3>Migration Settings</h3>
+    <form class="form-horizontal" id="settings-form" ng-submit="submit()" ng-show="configuring">
+      <div class="control-group">
+        <label class="control-label code" for="prop-host">host</label>
+        <div class="controls">
+      
+            <input type="text" class="input-xlarge" id="prop-host" ng-model="host">
+      
+      
+            <p class="help-block">Host name of your existing MongoDB server.</p>
+      
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label code" for="prop-port">port</label>
+        <div class="controls">
+      
+            <input type="number" class="input-xlarge" id="prop-port" ng-model="port">
+      
+      
+            <p class="help-block">Port number of your existing MongoDB server.</p>
+      
+        </div>
+      </div>
+    
+      <div class="control-group">
+        <label class="control-label code" for="prop-host">database name</label>
+        <div class="controls">
+      
+            <input type="text" class="input-xlarge" id="prop-dbname" ng-model="name">
+      
+      
+            <p class="help-block">Name of your existing MongoDB.</p>
+      
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label code" for="prop-username">username</label>
+        <div class="controls">
+      
+            <input type="text" class="input-xlarge" id="prop-username" ng-model="username">
+      
+      
+            <p class="help-block">MongoDB username (optional).</p>
+      
+        </div>
+      </div><div class="control-group">
+        <label class="control-label code" for="prop-password">password</label>
+        <div class="controls">
+      
+            <input type="text" class="input-xlarge" id="prop-password" ng-model="password">
+      
+      
+            <p class="help-block">MongoDB username (optional).</p>
+      
+        </div>
+      </div>
+      <div class="form-actions" id="save-button-container">
+        <button class="btn btn-success" id="save-button"><i class="icon-white icon-download"></i> Start Import</button>
+        <button class="btn" type="button" id="cancel-button"><i class="icon-remove"></i> Cancel</button>
+      </div>
+    </form>
+
+    <div id="loading" ng-hide="configuring" ng-show="loading">
+      <ul>
+        <li ng-repeat="log in logs">{{ log }}</li>
+      </ul>
+    </div>
+    <div id="done" ng-hide="configuring || loading">
+      Loading new resources...
+    </div>
+  </div>
+  
+</div>
+
+<script>
+  function SettingsCtrl($scope) {
+    // defaults
+    $scope.host = 'localhost';
+    $scope.post = 27017;
+    $scope.configuring = true;
+    
+    $scope.submit = function () {
+      $scope.configuring = false;
+      $scope.loading = true;
+      
+      var data = {
+        host: $scope.host,
+        port: $scope.port,
+        name: $scope.name,
+        username: $scope.username,
+        password: $scope.password
+      };
+      
+      dpd(Context.resourceId).post(data, function(result, err) {
+        $scope.loading = false;
+        $scope.$apply();
+        setTimeout(function () {
+          window.location.reload();
+        }, 1500);
+      });
+    }
+    
+    dpd.on('importer log', function (log) {
+      $scope.logs.push(log);
+    });
+  }
+</script>
