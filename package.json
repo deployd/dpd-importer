@@ -1,6 +1,6 @@
 {
   "name": "dpd-importer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "import mongo collections into your deployd app",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
   "author": "Ritchie Martori",
   "license": "BSD",
   "dependencies": {
-    "mongodb": "~1.1.11"
+    "mongodb": "~1.1.11",
+    "shelljs": "~0.1.2"
   }
 }
