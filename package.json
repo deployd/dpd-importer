@@ -13,7 +13,7 @@
   "author": "Ritchie Martori",
   "license": "BSD",
   "dependencies": {
-    "mongodb": "~1.1.11",
+    "mongodb": "^2.2.10",
     "shelljs": "~0.1.2"
   }
 }
