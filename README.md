@@ -16,6 +16,8 @@ Create a project. Then install the dpd-importer module.
     npm install dpd-importer
     dpd -d
     
+Create a collection(s) in your deployd dashboard to match that in your MongoDB database.
+
 Click the green new resource and choose **Importer**.
 
 Give it the default name "/importer". Open it by clicking "IMPORTER" in the left menu.
